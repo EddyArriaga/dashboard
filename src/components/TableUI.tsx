@@ -14,32 +14,34 @@ const columns: GridColDef[] = [
     {
         field: 'id',
         headerName: 'ID',
-        width: 90
+        width: 80
     },
     {
-        field: 'fechaHora',
+        field: 'label',
         headerName: 'Fecha y hora',
-        width: 125,
+        width: 220,
     },
     {
-        field: 'temperatura',
+        field: 'value1',
         headerName: 'Temperatura',
         width: 125,
     },
     {
-        field: 'velocidadDelViento',
+        field: 'value2',
         headerName: 'Velocidad del viento',
-        width: 125,
+        width: 180,
     },
 ];
 
-const arrValues1 = [4000, 3000, 2000, 2780, 1890, 2390, 3490];
-const arrValues2 = [2400, 1398, 9800, 3908, 4800, 3800, 4300];
-const arrLabels = ['A','B','C','D','E','F','G'];
+interface TableUIProps {
+    time: Array<string>;
+    temperature: Array<number>;
+    windSpeed: Array<number>;
+}
 
-export default function TableUI() {
+export default function TableUI(props: TableUIProps) {
 
-    const rows = combineArrays(arrLabels, arrValues1, arrValues2);
+    const rows = combineArrays(props.time, props.temperature, props.windSpeed);
 
     return (
         <Box sx={{ height: 350, width: '100%' }}>
@@ -49,7 +51,7 @@ export default function TableUI() {
                 initialState={{
                     pagination: {
                         paginationModel: {
-                            pageSize: 5,
+                            pageSize: 10,
                         },
                     },
                }}

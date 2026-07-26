@@ -54,7 +54,7 @@ function App() {
 
             {/* Tabla */}
             <Grid size={{xs:12, md:6}} sx={{display:{xs:"none", md:"block"}}}>
-                <TableUI />
+                {dataFetcherOutput && (<TableUI temperature={dataFetcherOutput.hourly.temperature_2m} windSpeed={dataFetcherOutput.hourly.wind_speed_10m} time={dataFetcherOutput.hourly.time}/>)}
             </Grid>
 
             {/* Información adicional */}
