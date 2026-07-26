@@ -4,6 +4,8 @@ import AlertUI from './components/AlertUI';
 import SelectorUI from './components/SelectorUI'
 import IndicatorUI from './components/IndicatorUI';
 import useFetchData from './hooks/useFetchData';
+import TableUI from './components/TableUI';
+import ChartUI from './components/ChartUI';
 import './App.css';
 
 function App() {
@@ -46,10 +48,14 @@ function App() {
             </Grid>
 
             {/* Gráfico */}
-            <Grid size={{xs:12, md:6}} sx={{display:{xs:"none", md:"block"}}}>Elemento: Gráfico</Grid>
+            <Grid size={{xs:12, md:6}} sx={{display:{xs:"none", md:"block"}}}>
+                {dataFetcherOutput && (<ChartUI temperature={dataFetcherOutput.hourly.temperature_2m} windSpeed={dataFetcherOutput.hourly.wind_speed_10m} hour={dataFetcherOutput.hourly.time}/>)}
+            </Grid>
 
             {/* Tabla */}
-            <Grid size={{xs:12, md:6}} sx={{display:{xs:"none", md:"block"}}}>Elemento: Tabla</Grid>
+            <Grid size={{xs:12, md:6}} sx={{display:{xs:"none", md:"block"}}}>
+                <TableUI />
+            </Grid>
 
             {/* Información adicional */}
             <Grid size={{xs:12, md:12}}>Elemento: Información adicional</Grid>
