@@ -4,13 +4,11 @@ interface AlertConfig {
     description: string;
 }
 
-/* Componente de Alerta */
-function AlertUI(config:AlertConfig) {
+/* Componente: Alerta */
+export default function AlertUI(config: AlertConfig) {
     return (
         <Alert severity="success" variant="outlined">
             {config.description}
         </Alert>
     );
 }
-
-export default AlertUI;
