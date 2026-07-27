@@ -1,6 +1,6 @@
 {
-  "name": "dashboard-nuevo",
-  "homepage": "https://EddyArriaga.github.io/dashboard-nuevo",
+  "name": "dashboard",
+  "homepage": "https://EddyArriaga.github.io/dashboard",
   "private": true,
   "version": "0.0.0",
   "type": "module",
