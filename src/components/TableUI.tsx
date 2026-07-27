@@ -55,7 +55,7 @@ export default function TableUI(props: TableUIProps) {
                         },
                     },
                }}
-               pageSizeOptions={[5]}
+               pageSizeOptions={[10]}
                disableRowSelectionOnClick
             />
         </Box>

@@ -6,10 +6,14 @@ import IndicatorUI from './components/IndicatorUI';
 import useFetchData from './hooks/useFetchData';
 import TableUI from './components/TableUI';
 import ChartUI from './components/ChartUI';
+import { useState } from 'react';
 import './App.css';
 
 function App() {
-    const dataFetcherOutput = useFetchData();
+    // Utilice una variable de estado para almacenar la opción seleccionada por el usuario
+    const [selectedOption, setSelectedOption] = useState<string | null>(null);
+
+    const dataFetcherOutput = useFetchData(selectedOption);
 
     return (
         <Grid container spacing={5} sx={{justifyContent:"left", alignItems:"center"}}>
@@ -25,7 +29,7 @@ function App() {
 
             {/* Selector */}
             <Grid size={{xs:12, md:9}}>
-                <SelectorUI/>
+                <SelectorUI onOptionSelect={setSelectedOption}/>
             </Grid>
 
             {/* Indicadores */}

@@ -5,11 +5,19 @@ import MenuItem from '@mui/material/MenuItem';
 import { useState } from 'react';
 
 /* Componente: Selector */
-export default function SelectorUI() {
-    const [cityInput, setCityInput] = useState("");
+
+// Interfaz del prop
+interface SelectorProps {
+   onOptionSelect: (option: string) => void;
+}
+
+export default function SelectorUI({ onOptionSelect }: SelectorProps) {
+    const [cityInput, setCityInput] = useState("guayaquil");
 
     const handleChange = (event: SelectChangeEvent<string>) => {
         setCityInput(event.target.value);
+        // Comunique los cambios al componente padre
+        onOptionSelect(event.target.value);
     }
 
     return (
