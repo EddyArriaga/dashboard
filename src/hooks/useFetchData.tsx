@@ -21,14 +21,32 @@ const CITY_COORDS: Record<string, { latitude: number; longitude: number }> = {
   },
 };
 
-export default function useFetchData(selectedOption: string | null) : OpenMeteoResponse | undefined {
+interface DataState {
+    loading: boolean;
+    data: OpenMeteoResponse | undefined;
+    error: string | null;
+}
+
+export default function useFetchData(selectedOption: string | null) : DataState {
     // Parametrice la opción seleccionada en la URL del requerimiento asíncrono
     const cityConfig = selectedOption != null? CITY_COORDS[selectedOption] : CITY_COORDS["guayaquil"];
     const URL = `https://api.open-meteo.com/v1/forecast?latitude=${cityConfig.latitude}&longitude=${cityConfig.longitude}&hourly=temperature_2m,relative_humidity_2m,apparent_temperature,wind_speed_10m&current=temperature_2m,relative_humidity_2m,wind_speed_10m,apparent_temperature&timezone=America%2FChicago`
 
-    const [data, setData] = useState<OpenMeteoResponse>();
+    const [dataState, setDataState] = useState<DataState>({
+        loading: true,
+        data: undefined,
+        error: null,
+    });
 
     useEffect(() => {
+
+        // Inicia una nueva petición
+        setDataState({
+            loading: true,
+            data: undefined,
+            error: null,
+        });
+
         const fetchData = async () => {
             try {
                 const response = await fetch(URL);
@@ -37,15 +55,23 @@ export default function useFetchData(selectedOption: string | null) : OpenMeteoR
                 }
 
                 const json: OpenMeteoResponse = await response.json();
-                setData(json);
+                setDataState({
+                    loading: false,
+                    data: json,
+                    error: null,
+                });
 
-            } catch (error) {
-                console.error("Error en la petición:", error);
+            } catch (err) {
+                setDataState({
+                    loading: false,
+                    data: undefined,
+                    error: (err as Error).message,
+                });
             }
         };
 
         fetchData();
     }, [selectedOption]); // El array vacío asegura que el efecto se ejecute solo una vez después del primer renderizado
 
-    return data;
+    return dataState;
 }

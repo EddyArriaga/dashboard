@@ -25,7 +25,7 @@ function App() {
 
             {/* Alertas */}
             <Grid size={{xs:12, md:3}}>
-                <AlertUI description="No se preveen lluvias"/>
+                <AlertUI severity="success" description="No se preveen lluvias"/>
             </Grid>
 
             {/* Selector */}
@@ -36,35 +36,60 @@ function App() {
             {/* Indicadores */}
             <Grid container size={{xs:12, md:12}}>
                 <Grid size={{xs:12, md:3}}>
-                    {dataFetcherOutput && (<IndicatorUI title='Temperatura (2m)' description={`${dataFetcherOutput.current.temperature_2m} ${dataFetcherOutput.current_units.temperature_2m}`}/>)}
+                    {dataFetcherOutput.loading ? (<p>Cargando...</p>) : dataFetcherOutput.error ? (
+                        <AlertUI severity="error" description={dataFetcherOutput.error} />
+                    ) : (
+                     dataFetcherOutput.data && (<IndicatorUI title="Temperatura (2m)" description={`${dataFetcherOutput.data.current.temperature_2m} ${dataFetcherOutput.data.current_units.temperature_2m}`}/>))}
                 </Grid>
 
                 <Grid size={{xs:12, md:3}}>
-                    {dataFetcherOutput && (<IndicatorUI title='Temperatura aparente' description={`${dataFetcherOutput.current.apparent_temperature} ${dataFetcherOutput.current_units.apparent_temperature}`}/>)}
+                    {dataFetcherOutput.loading ? (<p>Cargando...</p>) : dataFetcherOutput.error ? (
+                        <AlertUI severity="error" description={dataFetcherOutput.error} />
+                    ) : (
+                     dataFetcherOutput.data && (<IndicatorUI title="Temperatura aparente" description={`${dataFetcherOutput.data.current.apparent_temperature} ${dataFetcherOutput.data.current_units.apparent_temperature}`}/>))}
                 </Grid>
 
                 <Grid size={{xs:12, md:3}}>
-                    {dataFetcherOutput && (<IndicatorUI title='Velocidad del viento' description={`${dataFetcherOutput.current.wind_speed_10m} ${dataFetcherOutput.current_units.wind_speed_10m}`}/>)}
+                    {dataFetcherOutput.loading ? (<p>Cargando...</p>) : dataFetcherOutput.error ? (
+                        <AlertUI severity="error" description={dataFetcherOutput.error} />
+                    ) : (
+                     dataFetcherOutput.data && (<IndicatorUI title="Velocidad del viento" description={`${dataFetcherOutput.data.current.wind_speed_10m} ${dataFetcherOutput.data.current_units.wind_speed_10m}`}/>))}
                 </Grid>
 
                 <Grid size={{xs:12, md:3}}>
-                    {dataFetcherOutput && (<IndicatorUI title='Humedad relativa' description={`${dataFetcherOutput.current.relative_humidity_2m} ${dataFetcherOutput.current_units.relative_humidity_2m}`}/>)}
+                    {dataFetcherOutput.loading ? (<p>Cargando...</p>) : dataFetcherOutput.error ? (
+                        <AlertUI severity="error" description={dataFetcherOutput.error} />
+                    ) : (
+                     dataFetcherOutput.data && (<IndicatorUI title="Humedad relativa" description={`${dataFetcherOutput.data.current.relative_humidity_2m} ${dataFetcherOutput.data.current_units.relative_humidity_2m}`}/>))}
                 </Grid>
             </Grid>
 
             {/* Gráfico */}
             <Grid size={{xs:12, md:6}} sx={{display:{xs:"none", md:"block"}}}>
-                {dataFetcherOutput && (<ChartUI temperature={dataFetcherOutput.hourly.temperature_2m} windSpeed={dataFetcherOutput.hourly.wind_speed_10m} hour={dataFetcherOutput.hourly.time}/>)}
+                {dataFetcherOutput.loading? (<p>Cargando...</p>) : dataFetcherOutput.error? (
+                    <AlertUI severity="error" description={dataFetcherOutput.error} />
+                ): (
+                    dataFetcherOutput.data && (<ChartUI temperature={dataFetcherOutput.data.hourly.temperature_2m} windSpeed={dataFetcherOutput.data.hourly.wind_speed_10m} hour={dataFetcherOutput.data.hourly.time}/>)
+                )}
             </Grid>
 
             {/* Tabla */}
             <Grid size={{xs:12, md:6}} sx={{display:{xs:"none", md:"block"}}}>
-                {dataFetcherOutput && (<TableUI temperature={dataFetcherOutput.hourly.temperature_2m} windSpeed={dataFetcherOutput.hourly.wind_speed_10m} time={dataFetcherOutput.hourly.time}/>)}
+                {dataFetcherOutput.loading? (<p>Cargando...</p>) : dataFetcherOutput.error? (
+                    <AlertUI severity="error" description={dataFetcherOutput.error} />
+                ): (
+                    dataFetcherOutput.data && (<TableUI temperature={dataFetcherOutput.data.hourly.temperature_2m} windSpeed={dataFetcherOutput.data.hourly.wind_speed_10m} time={dataFetcherOutput.data.hourly.time}/>)
+                )}
             </Grid>
 
             {/* Información adicional */}
             <Grid size={{xs:12, md:12}}>
-                {dataFetcherOutput && (<AdditionalInfoUI maxTemperature={Math.max(...dataFetcherOutput.hourly.temperature_2m)} maxWindSpeed={Math.max(...dataFetcherOutput.hourly.wind_speed_10m)}/>)}
+                {dataFetcherOutput.loading? (<p>Cargando...</p>) : dataFetcherOutput.error? (
+                    <AlertUI severity="error" description={dataFetcherOutput.error} />
+                ): (
+                    dataFetcherOutput.data && (<AdditionalInfoUI maxTemperature={Math.max(...dataFetcherOutput.data.hourly.temperature_2m)} maxWindSpeed={Math.max(...dataFetcherOutput.data.hourly.wind_speed_10m)}/>)
+                )}
+                
             </Grid>
 
         </Grid>
