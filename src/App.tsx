@@ -33,6 +33,12 @@ function App() {
                 <SelectorUI onOptionSelect={setSelectedOption}/>
             </Grid>
 
+            <Grid size={{xs:12, md:12}}>
+                <p style={{ fontSize: '1.2rem', margin: 0 }}>
+                    Información del clima en <span style={{textTransform: 'capitalize', fontWeight: 'bold'}}>{selectedOption || 'guayaquil'}</span>
+                </p>
+            </Grid>
+
             {/* Indicadores */}
             <Grid container size={{xs:12, md:12}}>
                 <Grid size={{xs:12, md:3}}>

@@ -30,12 +30,6 @@ export default function SelectorUI({ onOptionSelect }: SelectorProps) {
                 <MenuItem value={"manta"}>Manta</MenuItem>
                 <MenuItem value={"cuenca"}>Cuenca</MenuItem>
             </Select>
-
-            {cityInput && (
-                <p>
-                    Información del clima en <span style={{textTransform: 'capitalize', fontWeight: 'bold'}}>{cityInput}</span>
-                </p>
-            )}
         </FormControl>
     )
 }
